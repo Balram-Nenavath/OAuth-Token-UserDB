@@ -1,17 +1,22 @@
 package com.example.oauthtask.controller;
 
-import com.example.oauthtask.dto.EmployeeDTO;
-import com.example.oauthtask.service.EmployeeService;
-import org.apache.commons.codec.binary.Base64;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
+import com.example.oauthtask.dto.EmployeeDTO;
+import com.example.oauthtask.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employees")
@@ -25,12 +30,49 @@ public class EmployeeController {
 		return new ResponseEntity<>(employeeService.addEmployee(employeeDTO), HttpStatus.CREATED);
 	}
 
+//	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+//	@GetMapping("/getAll")
+//	public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
+//
+//		List<EmployeeDTO> employeeDTOs = employeeService.getAllEmployees();
+//		return new ResponseEntity<>(employeeDTOs, HttpStatus.OK);
+//	}
+	
 	@GetMapping("/getAll")
 	public ResponseEntity<List<EmployeeDTO>> getAllEmployees() {
-
-		List<EmployeeDTO> employeeDTOs = employeeService.getAllEmployees();
-		return new ResponseEntity<>(employeeDTOs, HttpStatus.OK);
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (isAuthenticated(authentication)) {
+	        if (hasAdminOrUserRole(authentication)) {
+	            List<EmployeeDTO> employeeDTOs = employeeService.getAllEmployees();
+	            return new ResponseEntity<>(employeeDTOs, HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	        }
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	    }
 	}
+
+	 
+
+	private boolean isAuthenticated(Authentication authentication) {
+	    return authentication != null && authentication.isAuthenticated();
+	}
+
+	 
+
+	private boolean hasAdminOrUserRole(Authentication authentication) {
+
+        
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return userDetails.getAuthorities().stream()
+                    .anyMatch(role -> role.getAuthority().equals("ADMIN") || role.getAuthority().equals("USER"));
+        }
+        return false;
+	}
+
+
 
 	@GetMapping("/getById/{id}")
 	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable("id") Long id) {
