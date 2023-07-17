@@ -1,0 +1,14 @@
+<form class="login-form" (submit)="loginUser()">
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" [(ngModel)]="loginData.username" name="username" required>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" [(ngModel)]="loginData.password" name="password" required>
+  </div>
+  <button type="submit">Login</button>
+  <br>
+  <p class="text-center text-muted mt-5 mb-0" (click)="gotoRegister()">New User ?
+    <a (click)="gotoRegister()"  class="fw-bold text-body"><u>Register here</u></a></p>
+</form>

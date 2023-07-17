@@ -1,0 +1,28 @@
+<div class="card login-card">
+  <div class="card-header">Register</div>
+  <div class="card-body">
+    <form class="login-form" [formGroup]="userForm" (submit)="registerUser()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" class="form-control" formControlName="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" class="form-control" formControlName="password" required>
+      </div>
+      <div formArrayName="roles">
+        <label>Roles:</label>
+        <div *ngFor="let roleControl of roles.controls; let i = index" class="role-item">
+          <input type="text" [formControlName]="i" class="form-control">
+          <button type="button" (click)="removeRole(i)" class="btn btn-danger">Remove</button>
+        </div>
+        <button type="button" (click)="addRole()" class="btn btn-primary">Add Role</button>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success">Submit</button>
+      <br>
+      <p class="text-center text-muted mt-5 mb-0" (click)="gotoLogin()">Already User ?
+        <a (click)="gotoLogin()" class="fw-bold text-body"><u>Login here</u></a></p>
+    </form>
+  </div>
+</div>

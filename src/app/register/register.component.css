@@ -1,0 +1,89 @@
+.card.login-card {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.card.login-card .card-header {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-form .form-group {
+  margin-bottom: 10px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input.form-control {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form .role-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.login-form .role-item input.form-control {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.login-form button.btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button.btn-primary {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.login-form button.btn-danger {
+  background-color: #FF0000;
+  color: white;
+  border: none;
+}
+
+.login-form button.btn-success {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button.btn-success:hover {
+  background-color: #45a049;
+}
+
+.login-form p.text-center {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.login-form p.text-center a {
+  text-decoration: none;
+  color: #000;
+}
+
+.login-form p.text-center a:hover {
+  text-decoration: underline;
+}

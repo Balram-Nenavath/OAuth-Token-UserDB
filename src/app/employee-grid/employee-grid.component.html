@@ -1,0 +1,14 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-title">
+  <h1>Employees Data</h1>
+  </div>
+  <button class="logout btn btn-default" (click)="logout()">Logout</button>
+   </nav>
+<ag-grid-angular
+  style="width: 100%; height: 530px;"
+  class="ag-theme-alpine"
+  [rowData]="employees"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [gridOptions]="gridOptions"
+></ag-grid-angular>
